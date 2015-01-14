@@ -5,12 +5,12 @@ module Rendering
   class MockController < ActionController::Base
     def params
       @params ||= {}
-    end    
+    end
   end
 
   def render file, format, controller, assigns = {}
     ActionView::Base.new(template_dir, assigns, controller).tap do |view|
-      view.lookup_context.freeze_formats [format]
+      view.lookup_context.formats = [format]
     end.render :file => file
   end
 
